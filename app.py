@@ -21,18 +21,16 @@ except Exception:
     COOKIE_MANAGER_AVAILABLE = False
     EncryptedCookieManager = None
 
-
 # =================================================
 # PAGE CONFIG
 # =================================================
 st.set_page_config(
-    page_title="FTCE GK–12 Arena 2026",
-    page_icon="📝",
+    page_title="FTCE GK Arena 2026",
+    page_icon="📘",
     layout="wide"
 )
-st.title("FTCE GK–12 (082) Arena 📝")
+st.title("FTCE GK Arena 📘")
 st.caption("Practice like a game: podiums, XP, streaks, challenges, arena events, live competition, and teacher event management.")
-
 
 # =================================================
 # SAFE SECRETS / ENV
@@ -106,7 +104,6 @@ PERIOD_OPTIONS = [
     "Period 5", "Period 6", "Period 7", "Period 8", "Other"
 ]
 
-
 # =================================================
 # COOKIES
 # =================================================
@@ -122,101 +119,94 @@ if COOKIE_MANAGER_AVAILABLE:
     except Exception:
         cookies = None
 
-
 # =================================================
-# FTCE GK DOMAINS
+# DOMAINS + SUBTOPICS
 # =================================================
-DOMAIN_CARDS = [
-    {
-        "title": "Essay Subtest",
-        "label": "Essay Subtest",
-        "summary": [
-            "Maintaining a consistent point of view",
-            "Using a relevant thesis",
-            "Adhering to college-level English standards",
-        ],
-        "prompt_context": "Essay writing, thesis development, organization, point of view, supporting details, grammar, style, revision, college-level writing standards."
-    },
-    {
-        "title": "English Language Skills (ELS)",
-        "label": "English Language Skills (ELS)",
-        "summary": [
-            "Sentence fragments, comma splices, modifiers",
-            "Context clues and precise diction",
-            "Subject-verb agreement, tense, pronouns, punctuation",
-        ],
-        "prompt_context": "Language structure, grammar, usage, conventions of standard English, vocabulary in context, diction, modifiers, punctuation, capitalization."
-    },
-    {
-        "title": "Reading Subtest",
-        "label": "Reading Subtest",
-        "summary": [
-            "Central themes, summaries, inferences",
-            "Word choice, structure, point of view",
-            "Arguments, evidence, multiple texts",
-        ],
-        "prompt_context": "Reading comprehension, key ideas, details, craft, structure, point of view, argument analysis, evidence, integration across texts."
-    },
-    {
-        "title": "Mathematics Subtest",
-        "label": "Mathematics Subtest",
-        "summary": [
-            "Rational numbers, ratios, proportions, percentages",
-            "Area, volume, coordinate plane",
-            "Linear equations, functions, probability, statistics",
-        ],
-        "prompt_context": "Number sense, algebraic thinking, geometry, measurement, ratios, percentages, coordinate plane, probability, statistics, interpreting data."
-    },
+DOMAINS = [
+    "Essay Subtest",
+    "English Language Skills (ELS)",
+    "Reading Subtest",
+    "Mathematics Subtest",
 ]
 
-DOMAINS = [card["label"] for card in DOMAIN_CARDS]
-
-DOMAIN_CONTEXT_MAP = {card["label"]: card["prompt_context"] for card in DOMAIN_CARDS}
-DOMAIN_TITLE_MAP = {card["label"]: card["title"] for card in DOMAIN_CARDS}
-
+SUBTOPICS = {
+    "Essay Subtest": [
+        "Maintaining a consistent point of view",
+        "Using a relevant thesis",
+        "Organization and development",
+        "College-level English standards",
+        "Clarity and coherence",
+    ],
+    "English Language Skills (ELS)": [
+        "Sentence fragments",
+        "Comma splices",
+        "Correct placement of modifiers",
+        "Using context clues to determine word meaning",
+        "Choosing precise diction",
+        "Subject-verb agreement",
+        "Verb tense",
+        "Pronoun usage",
+        "Capitalization and punctuation",
+    ],
+    "Reading Subtest": [
+        "Identifying central themes",
+        "Summarizing texts",
+        "Drawing inferences",
+        "Analyzing word choice",
+        "Analyzing text structure",
+        "Analyzing point of view",
+        "Evaluating arguments across multiple texts",
+        "Identifying supporting evidence",
+    ],
+    "Mathematics Subtest": [
+        "Operations with rational numbers",
+        "Ratios",
+        "Proportions",
+        "Percentages",
+        "Area",
+        "Volume",
+        "Coordinate plane",
+        "Solving linear equations",
+        "Solving inequalities",
+        "Functional relationships",
+        "Interpreting data sets",
+        "Mean, median, and mode",
+        "Basic probability",
+    ],
+}
 
 # =================================================
 # FALLBACK QUESTIONS
 # =================================================
 FALLBACK_QUESTIONS = [
     {
-        "question": "A strong essay thesis should clearly state the main idea of the writing.",
+        "question": "Which statement best describes a strong thesis in an essay response?",
+        "A": "It gives a clear central claim that guides the writing",
+        "B": "It repeats the prompt without a position",
+        "C": "It lists random supporting details",
+        "D": "It avoids the main topic entirely",
+        "correct": "A",
+        "explanation": "A strong thesis states a clear controlling idea and helps organize the response."
+    },
+    {
+        "question": "A sentence fragment is a complete sentence.",
         "A": "True",
         "B": "False",
         "C": "Not used",
         "D": "Not used",
-        "correct": "A",
-        "explanation": "A thesis gives the essay a clear focus and helps organize supporting points."
-    },
-    {
-        "question": "Which sentence contains a comma splice?",
-        "A": "I studied for the test, I felt prepared.",
-        "B": "I studied for the test because I felt prepared.",
-        "C": "After studying, I felt prepared.",
-        "D": "I felt prepared after I studied.",
-        "correct": "A",
-        "explanation": "A comma splice happens when two complete sentences are joined with only a comma."
-    },
-    {
-        "question": "Which reading skill best matches identifying the author's point of view?",
-        "A": "Craft and Structure",
-        "B": "Number Sense",
-        "C": "Probability",
-        "D": "Geometry",
-        "correct": "A",
-        "explanation": "Point of view is part of analyzing craft and structure in a text."
-    },
-    {
-        "question": "What is 25% of 80?",
-        "A": "10",
-        "B": "20",
-        "C": "25",
-        "D": "40",
         "correct": "B",
-        "explanation": "25% of 80 is 0.25 × 80 = 20."
+        "explanation": "A fragment is incomplete and does not express a full thought."
+    },
+    {
+        "question": "Put these steps in the best order for solving a ratio word problem.",
+        "A": "Read the problem → identify the ratio → solve → check reasonableness",
+        "B": "Solve → read the problem → check reasonableness → identify the ratio",
+        "C": "Check reasonableness → identify the ratio → solve → read the problem",
+        "D": "Identify the ratio → check reasonableness → read the problem → solve",
+        "correct": "A",
+        "explanation": "You first understand the problem, identify the ratio, solve it, and then check the result."
     },
 ]
-
 
 # =================================================
 # HELPERS
@@ -308,6 +298,26 @@ def clean_event_title(title: str) -> str:
         return cleaned or "FTCE GK Arena Event"
 
     return raw or "FTCE GK Arena Event"
+
+
+def get_subtopics_for_domain(topic: str):
+    return SUBTOPICS.get(topic, [])
+
+
+def pick_subtopics_for_prompt(topic: str, count: int = 5):
+    subs = get_subtopics_for_domain(topic)
+    if not subs:
+        return []
+    if len(subs) <= count:
+        return subs
+    return random.sample(subs, count)
+
+
+def format_subtopics_for_prompt(topic: str, count: int = 5):
+    chosen = pick_subtopics_for_prompt(topic, count=count)
+    if not chosen:
+        return ""
+    return "\n".join([f"- {item}" for item in chosen])
 
 
 def challenge_sort_key(challenge_row: dict):
@@ -891,9 +901,7 @@ def delete_student_profile_and_auth(uid: str):
 
     clear_db_caches()
     mark_db_data_stale()
-
-
-# =================================================
+    # =================================================
 # FIRESTORE WRITE HELPERS
 # =================================================
 def upsert_player(name: str, period: str):
@@ -1178,7 +1186,6 @@ def _complete_event_transaction(transaction, event_id: str, player_id: str, peri
 
     if event_mode == "class":
         class_scores = event_data.get("class_scores", {}) or {}
-
         class_scores[player_id] = {
             "player_id": player_id,
             "period": period_label,
@@ -1373,15 +1380,17 @@ def parse_batch(raw: str):
 
 
 def fetch_questions_from_gemini(topic: str, difficulty: str, count: int):
-    prompt_context = DOMAIN_CONTEXT_MAP.get(topic, topic)
+    subtopics_text = format_subtopics_for_prompt(topic, count=5)
 
     prompt = f"""
-You are an FTCE General Knowledge (GK) exam writer for subtest 082.
+You are an FTCE General Knowledge exam writer.
 Create exactly {count} questions for a classroom quiz game.
 
-SUBTEST DOMAIN: {topic}
-TOPIC DETAILS: {prompt_context}
+DOMAIN: {topic}
 DIFFICULTY: {difficulty}
+
+SUBTOPICS TO COVER:
+{subtopics_text if subtopics_text else "- General coverage of the selected domain"}
 
 IMPORTANT:
 - Mix the question styles across the batch.
@@ -1400,11 +1409,16 @@ QUESTION STYLE RULES:
   A, B, C, or D
 
 CONTENT RULES:
-- Focus strictly on this FTCE GK domain.
+- Focus strictly on this FTCE General Knowledge domain.
 - Use realistic teacher-certification style questions.
-- Include short reading passages, grammar examples, brief math expressions, or essay-writing scenarios when useful.
-- Ask about concepts, applied reasoning, conventions, interpretation, and test-style problem solving.
+- Use the selected subtopics as the main coverage targets for this batch.
+- Vary the questions across the chosen subtopics.
 - Use realistic distractors.
+- Use short examples/snippets when helpful.
+- For Mathematics, include computation, interpretation, and reasoning.
+- For Reading, include inference, structure, and evidence.
+- For English Language Skills, include grammar, usage, diction, and conventions.
+- For Essay Subtest, include thesis, organization, point of view, and conventions.
 
 TRUE/FALSE RULES:
 - For True/False questions, still format the answers as:
@@ -1431,7 +1445,6 @@ FORMAT (MUST MATCH EXACTLY):
 
 QUESTION: ...
 A) ...
-) ...
 B) ...
 C) ...
 D) ...
@@ -1492,24 +1505,11 @@ def show_xp_popup():
         f"""
         <style>
         @keyframes xpFloatFade-{popup_nonce} {{
-            0% {{
-                opacity: 0;
-                transform: translate(-50%, 18px) scale(0.92);
-            }}
-            12% {{
-                opacity: 1;
-                transform: translate(-50%, 0px) scale(1.02);
-            }}
-            75% {{
-                opacity: 1;
-                transform: translate(-50%, -8px) scale(1.0);
-            }}
-            100% {{
-                opacity: 0;
-                transform: translate(-50%, -28px) scale(0.96);
-            }}
+            0% {{ opacity: 0; transform: translate(-50%, 18px) scale(0.92); }}
+            12% {{ opacity: 1; transform: translate(-50%, 0px) scale(1.02); }}
+            75% {{ opacity: 1; transform: translate(-50%, -8px) scale(1.0); }}
+            100% {{ opacity: 0; transform: translate(-50%, -28px) scale(0.96); }}
         }}
-
         .xp-popup-{popup_nonce} {{
             position: fixed;
             left: 50%;
@@ -1531,7 +1531,6 @@ def show_xp_popup():
             white-space: pre-line;
         }}
         </style>
-
         <div class="xp-popup-{popup_nonce}">
             {popup_text}
         </div>
@@ -1565,24 +1564,11 @@ def show_challenge_result_popup():
         f"""
         <style>
         @keyframes challengeResultFade-{popup_nonce} {{
-            0% {{
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.88);
-            }}
-            10% {{
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.02);
-            }}
-            85% {{
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.0);
-            }}
-            100% {{
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.94);
-            }}
+            0% {{ opacity: 0; transform: translate(-50%, -50%) scale(0.88); }}
+            10% {{ opacity: 1; transform: translate(-50%, -50%) scale(1.02); }}
+            85% {{ opacity: 1; transform: translate(-50%, -50%) scale(1.0); }}
+            100% {{ opacity: 0; transform: translate(-50%, -50%) scale(0.94); }}
         }}
-
         .challenge-result-popup-{popup_nonce} {{
             position: fixed;
             left: 50%;
@@ -1602,20 +1588,17 @@ def show_challenge_result_popup():
             animation: challengeResultFade-{popup_nonce} 3.2s ease-out forwards;
             pointer-events: none;
         }}
-
         .challenge-result-popup-{popup_nonce} .icon {{
             font-size: 54px;
             line-height: 1;
             margin-bottom: 10px;
         }}
-
         .challenge-result-popup-{popup_nonce} .text {{
             font-size: 34px;
             line-height: 1.15;
             white-space: pre-line;
         }}
         </style>
-
         <div class="challenge-result-popup-{popup_nonce}">
             <div class="icon">{emoji}</div>
             <div class="text">{popup_text}</div>
@@ -1703,18 +1686,13 @@ def render_combo_meter(streak_value: int):
             font-weight:600;
         }}
         </style>
-
         <div class="combo-wrap">
             <div class="combo-top">
                 <div>{tier_label}</div>
                 <div class="combo-badge">Combo x{streak_value}</div>
             </div>
-            <div class="combo-track">
-                <div class="combo-fill"></div>
-            </div>
-            <div class="combo-caption">
-                3 = 🔥 Combo • 5 = ⚡ Hot Streak • 10 = 👑 Legendary
-            </div>
+            <div class="combo-track"><div class="combo-fill"></div></div>
+            <div class="combo-caption">3 = 🔥 Combo • 5 = ⚡ Hot Streak • 10 = 👑 Legendary</div>
         </div>
         """,
         unsafe_allow_html=True
@@ -1782,7 +1760,6 @@ st.session_state.setdefault("firebase_error", "")
 st.session_state.setdefault("leaderboard_cache", [])
 st.session_state.setdefault("challenge_cache", [])
 st.session_state.setdefault("last_db_sync", 0)
-st.session_state.setdefault("session_logged", False)
 
 st.session_state.setdefault("xp_popup_text", "")
 st.session_state.setdefault("xp_popup_kind", "")
@@ -1805,7 +1782,6 @@ st.session_state.setdefault("auth_id_token", "")
 st.session_state.setdefault("auth_refresh_token", "")
 
 st.session_state.setdefault("shown_result_challenge_ids", [])
-st.session_state.setdefault("shown_event_result_ids", [])
 st.session_state.setdefault("latest_result_checked_at", 0)
 st.session_state.setdefault("create_student_form_cleared", False)
 
@@ -1836,10 +1812,7 @@ with st.sidebar:
 
         if login_submit:
             try:
-                sign_in_result = firebase_sign_in_email_password(
-                    login_email.strip(),
-                    login_password
-                )
+                sign_in_result = firebase_sign_in_email_password(login_email.strip(), login_password)
                 decoded = verify_firebase_id_token(sign_in_result["id_token"])
 
                 email = str(decoded.get("email", "")).strip().lower()
@@ -1857,7 +1830,6 @@ with st.sidebar:
                 st.session_state.is_teacher = email in teacher_emails
 
                 persist_auth_cookie(sign_in_result["id_token"])
-
                 st.success("Signed in successfully.")
                 st.rerun()
             except Exception as e:
@@ -1912,22 +1884,12 @@ st.sidebar.header("Student Identity")
 
 if is_teacher_user:
     st.sidebar.info("Teacher account")
-    st.session_state.first_name = st.sidebar.text_input(
-        "Preview First Name",
-        value=st.session_state.first_name,
-        key="sidebar_first_name_input"
-    )
-    st.session_state.student_id = st.sidebar.text_input(
-        "Preview Student ID (numbers only)",
-        value=st.session_state.student_id,
-        key="sidebar_student_id_input"
-    )
+    st.session_state.first_name = st.sidebar.text_input("Preview First Name", value=st.session_state.first_name, key="sidebar_first_name_input")
+    st.session_state.student_id = st.sidebar.text_input("Preview Student ID (numbers only)", value=st.session_state.student_id, key="sidebar_student_id_input")
     st.session_state.student_period = st.sidebar.selectbox(
         "Preview Class / Period",
         PERIOD_OPTIONS,
-        index=PERIOD_OPTIONS.index(st.session_state.student_period)
-        if st.session_state.student_period in PERIOD_OPTIONS
-        else 0,
+        index=PERIOD_OPTIONS.index(st.session_state.student_period) if st.session_state.student_period in PERIOD_OPTIONS else 0,
         key="sidebar_student_period_select"
     )
 
@@ -1976,6 +1938,12 @@ lu = bank_last_updated(topic, difficulty)
 if lu:
     st.sidebar.caption(f"Last teacher refill (UTC): {lu}")
 
+selected_subtopics = get_subtopics_for_domain(topic)
+if selected_subtopics:
+    with st.sidebar.expander("Domain Subtopics"):
+        for sub in selected_subtopics:
+            st.write(f"• {sub}")
+
 st.sidebar.success("✅ Persistent mode: Firebase Firestore")
 
 # =================================================
@@ -1983,21 +1951,13 @@ st.sidebar.success("✅ Persistent mode: Firebase Firestore")
 # =================================================
 if st.session_state.get("is_teacher", False):
     if not any_quiz_mode_running() and not st.session_state.get("is_generating", False):
-        st_autorefresh(
-            interval=60 * 1000,
-            limit=None,
-            key="teacher_live_refresh_timer"
-        )
+        st_autorefresh(interval=60 * 1000, limit=None, key="teacher_live_refresh_timer")
         st.sidebar.caption("🔄 Teacher refresh every 60 seconds")
     else:
         st.sidebar.caption("⏸ Teacher refresh paused during active play or generation")
 else:
     if not any_quiz_mode_running():
-        st_autorefresh(
-            interval=30 * 1000,
-            limit=None,
-            key="student_refresh_timer"
-        )
+        st_autorefresh(interval=30 * 1000, limit=None, key="student_refresh_timer")
         st.sidebar.caption("🔄 Refresh every 30 seconds")
     else:
         st.sidebar.caption("⏸ Auto-refresh paused during active play")
@@ -2025,19 +1985,12 @@ except Exception as e:
 lb_sorted = sorted(lb, key=lambda r: safe_int(r.get("xp", 0)), reverse=True)
 
 player_id_lower = st.session_state.player_id.strip().lower()
-me = next(
-    (r for r in lb if str(r.get("name", "")).strip().lower() == player_id_lower),
-    {}
-)
+me = next((r for r in lb if str(r.get("name", "")).strip().lower() == player_id_lower), {})
 my_has_active_challenge = player_has_active_challenge(st.session_state.player_id, ch_all)
 
 check_and_show_finished_challenge_result(ch_all, player_id_lower)
 if not is_teacher_user:
-    check_and_show_finished_event_result(
-        all_events,
-        st.session_state.player_id,
-        st.session_state.student_period
-    )
+    check_and_show_finished_event_result(all_events, st.session_state.player_id, st.session_state.student_period)
 
 show_xp_popup()
 show_challenge_result_popup()
@@ -2054,82 +2007,64 @@ col_left, col_mid, col_right = st.columns([1, 1.2, 1])
 
 with col_left:
     if pod[1].get("name"):
-        st.markdown(
-            f"""
-            <div style="text-align:center;background: linear-gradient(180deg, #e5e7eb, #cbd5e1);padding: 18px;border-radius: 18px;border: 2px solid #94a3b8;box-shadow: 0 6px 14px rgba(0,0,0,0.12);min-height: 220px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:48px;">🥈</div>
-                <div style="font-size:26px; font-weight:800; margin-top:4px;">#2</div>
-                <div style="font-size:22px; font-weight:700; margin-top:8px;">{pod[1]["name"]}</div>
-                <div style="font-size:20px; margin-top:8px;">{safe_int(pod[1].get("xp"))} XP</div>
-                <div style="font-size:16px; margin-top:8px;">🔥 Best streak: {safe_int(pod[1].get("best_streak"))}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div style="text-align:center;background: linear-gradient(180deg, #e5e7eb, #cbd5e1);padding: 18px;border-radius: 18px;border: 2px solid #94a3b8;box-shadow: 0 6px 14px rgba(0,0,0,0.12);min-height: 220px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:48px;">🥈</div>
+            <div style="font-size:26px; font-weight:800; margin-top:4px;">#2</div>
+            <div style="font-size:22px; font-weight:700; margin-top:8px;">{pod[1]["name"]}</div>
+            <div style="font-size:20px; margin-top:8px;">{safe_int(pod[1].get("xp"))} XP</div>
+            <div style="font-size:16px; margin-top:8px;">🔥 Best streak: {safe_int(pod[1].get("best_streak"))}</div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(
-            """
-            <div style="text-align:center;background:#f1f5f9;padding:18px;border-radius:18px;min-height:220px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:48px;">🥈</div>
-                <div style="font-size:22px; font-weight:700;">Open Spot</div>
-                <div style="font-size:18px;">0 XP</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown("""
+        <div style="text-align:center;background:#f1f5f9;padding:18px;border-radius:18px;min-height:220px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:48px;">🥈</div>
+            <div style="font-size:22px; font-weight:700;">Open Spot</div>
+            <div style="font-size:18px;">0 XP</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 with col_mid:
     if pod[0].get("name"):
-        st.markdown(
-            f"""
-            <div style="text-align:center;background: linear-gradient(180deg, #fde68a, #fbbf24);padding: 22px;border-radius: 20px;border: 3px solid #d97706;box-shadow: 0 10px 24px rgba(0,0,0,0.18);min-height: 260px;display:flex;flex-direction:column;justify-content:center;transform: scale(1.03);">
-                <div style="font-size:60px;">🥇</div>
-                <div style="font-size:30px; font-weight:900; margin-top:4px;">#1</div>
-                <div style="font-size:26px; font-weight:800; margin-top:10px;">{pod[0]["name"]}</div>
-                <div style="font-size:24px; font-weight:700; margin-top:10px;">{safe_int(pod[0].get("xp"))} XP</div>
-                <div style="font-size:18px; margin-top:10px;">🔥 Best streak: {safe_int(pod[0].get("best_streak"))}</div>
-                <div style="font-size:16px; margin-top:10px;">👑 Current leader</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div style="text-align:center;background: linear-gradient(180deg, #fde68a, #fbbf24);padding: 22px;border-radius: 20px;border: 3px solid #d97706;box-shadow: 0 10px 24px rgba(0,0,0,0.18);min-height: 260px;display:flex;flex-direction:column;justify-content:center;transform: scale(1.03);">
+            <div style="font-size:60px;">🥇</div>
+            <div style="font-size:30px; font-weight:900; margin-top:4px;">#1</div>
+            <div style="font-size:26px; font-weight:800; margin-top:10px;">{pod[0]["name"]}</div>
+            <div style="font-size:24px; font-weight:700; margin-top:10px;">{safe_int(pod[0].get("xp"))} XP</div>
+            <div style="font-size:18px; margin-top:10px;">🔥 Best streak: {safe_int(pod[0].get("best_streak"))}</div>
+            <div style="font-size:16px; margin-top:10px;">👑 Current leader</div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(
-            """
-            <div style="text-align:center;background:#fef3c7;padding:22px;border-radius:20px;min-height:260px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:60px;">🥇</div>
-                <div style="font-size:24px; font-weight:800;">Open Spot</div>
-                <div style="font-size:18px;">0 XP</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown("""
+        <div style="text-align:center;background:#fef3c7;padding:22px;border-radius:20px;min-height:260px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:60px;">🥇</div>
+            <div style="font-size:24px; font-weight:800;">Open Spot</div>
+            <div style="font-size:18px;">0 XP</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 with col_right:
     if pod[2].get("name"):
-        st.markdown(
-            f"""
-            <div style="text-align:center;background: linear-gradient(180deg, #d6a779, #b87333);padding: 18px;border-radius: 18px;border: 2px solid #92400e;box-shadow: 0 6px 14px rgba(0,0,0,0.12);min-height: 220px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:48px;">🥉</div>
-                <div style="font-size:26px; font-weight:800; margin-top:4px;">#3</div>
-                <div style="font-size:22px; font-weight:700; margin-top:8px;">{pod[2]["name"]}</div>
-                <div style="font-size:20px; margin-top:8px;">{safe_int(pod[2].get("xp"))} XP</div>
-                <div style="font-size:16px; margin-top:8px;">🔥 Best streak: {safe_int(pod[2].get("best_streak"))}</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown(f"""
+        <div style="text-align:center;background: linear-gradient(180deg, #d6a779, #b87333);padding: 18px;border-radius: 18px;border: 2px solid #92400e;box-shadow: 0 6px 14px rgba(0,0,0,0.12);min-height: 220px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:48px;">🥉</div>
+            <div style="font-size:26px; font-weight:800; margin-top:4px;">#3</div>
+            <div style="font-size:22px; font-weight:700; margin-top:8px;">{pod[2]["name"]}</div>
+            <div style="font-size:20px; margin-top:8px;">{safe_int(pod[2].get("xp"))} XP</div>
+            <div style="font-size:16px; margin-top:8px;">🔥 Best streak: {safe_int(pod[2].get("best_streak"))}</div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown(
-            """
-            <div style="text-align:center;background:#f5e1d1;padding:18px;border-radius:18px;min-height:220px;display:flex;flex-direction:column;justify-content:center;">
-                <div style="font-size:48px;">🥉</div>
-                <div style="font-size:22px; font-weight:700;">Open Spot</div>
-                <div style="font-size:18px;">0 XP</div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        st.markdown("""
+        <div style="text-align:center;background:#f5e1d1;padding:18px;border-radius:18px;min-height:220px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-size:48px;">🥉</div>
+            <div style="font-size:22px; font-weight:700;">Open Spot</div>
+            <div style="font-size:18px;">0 XP</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 top_rows = []
 for i, r in enumerate(lb_sorted[:25], start=1):
@@ -2143,7 +2078,6 @@ for i, r in enumerate(lb_sorted[:25], start=1):
         "W": safe_int(r.get("wins", 0)),
         "L": safe_int(r.get("losses", 0)),
     })
-
 st.dataframe(top_rows, use_container_width=True, height=340)
 
 # =================================================
@@ -2207,10 +2141,7 @@ for r in lb:
     p = r.get("period", "Other")
     period_totals[p] = period_totals.get(p, 0) + safe_int(r.get("xp", 0))
 
-period_rows = [
-    {"Period": k, "Total XP": v}
-    for k, v in sorted(period_totals.items(), key=lambda x: x[1], reverse=True)
-]
+period_rows = [{"Period": k, "Total XP": v} for k, v in sorted(period_totals.items(), key=lambda x: x[1], reverse=True)]
 st.dataframe(period_rows, use_container_width=True, height=220)
 
 st.divider()
@@ -2231,7 +2162,6 @@ c3.metric("🏅 Best Streak", my_best)
 goal = 1000
 st.progress(min(1.0, my_xp / goal))
 st.caption(f"Race to {goal} XP")
-
 render_combo_meter(my_streak)
 
 st.divider()
@@ -2266,7 +2196,6 @@ def load_question(topic_: str, difficulty_: str):
     st.session_state.submit_locked = False
     st.session_state.processing_submission = False
     st.session_state.question_token = f"{int(time.time() * 1000)}-{random.randint(1000, 9999)}"
-
     st.session_state.answer_widget_nonce += 1
     st.session_state.current_answer_widget_key = f"answer_choice_{st.session_state.answer_widget_nonce}"
 
@@ -2352,11 +2281,7 @@ st.markdown("## 🏟️ Arena Events")
 
 eligible_events = []
 if not is_teacher_user:
-    eligible_events = student_eligible_events(
-        all_events,
-        st.session_state.student_period,
-        st.session_state.player_id,
-    )
+    eligible_events = student_eligible_events(all_events, st.session_state.student_period, st.session_state.player_id)
 
 active_event_rows = [ev for ev in all_events if str(ev.get("status", "")).strip().lower() == "active"]
 
@@ -2366,9 +2291,7 @@ if is_teacher_user:
     else:
         for ev in active_event_rows[:5]:
             event_mode_label = "Class Event" if str(ev.get("mode", "period")).strip().lower() == "class" else "Period Event"
-            st.markdown(
-                f"**{ev.get('title', 'Arena Event')}** • {event_mode_label} • {ev.get('domain', '')} • {ev.get('difficulty', '')} • Questions: {safe_int(ev.get('question_count', 0))}"
-            )
+            st.markdown(f"**{ev.get('title', 'Arena Event')}** • {event_mode_label} • {ev.get('domain', '')} • {ev.get('difficulty', '')} • Questions: {safe_int(ev.get('question_count', 0))}")
 else:
     if not eligible_events:
         st.caption("No available arena event for your period right now.")
@@ -2376,14 +2299,8 @@ else:
         for ev in eligible_events[:3]:
             btn_disabled = any_quiz_mode_running()
             event_mode_label = "Class Event" if str(ev.get("mode", "period")).strip().lower() == "class" else "Period Event"
-            st.write(
-                f"**{ev.get('title', 'Arena Event')}** • **{event_mode_label}** • **{ev.get('domain', '')}** ({ev.get('difficulty', '')}) • Questions: {safe_int(ev.get('question_count', CHALLENGE_QUESTIONS))}"
-            )
-            if st.button(
-                "🚀 Start Arena Event",
-                key=f"start_event_{ev.get('event_id', '')}",
-                disabled=btn_disabled
-            ):
+            st.write(f"**{ev.get('title', 'Arena Event')}** • **{event_mode_label}** • **{ev.get('domain', '')}** ({ev.get('difficulty', '')}) • Questions: {safe_int(ev.get('question_count', CHALLENGE_QUESTIONS))}")
+            if st.button("🚀 Start Arena Event", key=f"start_event_{ev.get('event_id', '')}", disabled=btn_disabled):
                 try:
                     start_event_attempt(ev)
                     st.success("Arena event started!")
@@ -2400,17 +2317,8 @@ st.divider()
 st.markdown("## 📩 Challenges")
 st.caption("New incoming challenges appear automatically while you are not inside an active quiz.")
 
-incoming = [
-    c for c in ch_all
-    if str(c.get("opponent", "")).strip().lower() == player_id_lower
-    and c.get("status") in ("pending", "accepted", "done")
-]
-
-outgoing = [
-    c for c in ch_all
-    if str(c.get("challenger", "")).strip().lower() == player_id_lower
-    and c.get("status") in ("pending", "accepted", "done")
-]
+incoming = [c for c in ch_all if str(c.get("opponent", "")).strip().lower() == player_id_lower and c.get("status") in ("pending", "accepted", "done")]
+outgoing = [c for c in ch_all if str(c.get("challenger", "")).strip().lower() == player_id_lower and c.get("status") in ("pending", "accepted", "done")]
 
 incoming = sorted(incoming, key=challenge_sort_key, reverse=True)[:MAX_CHALLENGE_HISTORY_PER_COLUMN]
 outgoing = sorted(outgoing, key=challenge_sort_key, reverse=True)[:MAX_CHALLENGE_HISTORY_PER_COLUMN]
@@ -2429,9 +2337,7 @@ with left:
             challenge_locked = challenge_is_locked_for_ui(c["challenge_id"])
             any_running = any_quiz_mode_running()
 
-            st.write(
-                f"**{c['challenger']}** challenged you • **{c['domain']}** ({c['difficulty']}) • `{c['status']}`"
-            )
+            st.write(f"**{c['challenger']}** challenged you • **{c['domain']}** ({c['difficulty']}) • `{c['status']}`")
 
             if challenge_done:
                 st.button("✅ Challenge Over", key=f"incoming_done_{c['challenge_id']}", disabled=True)
@@ -2474,9 +2380,7 @@ with right:
             challenge_locked = challenge_is_locked_for_ui(c["challenge_id"])
             any_running = any_quiz_mode_running()
 
-            st.write(
-                f"To **{c['opponent']}** • **{c['domain']}** ({c['difficulty']}) • `{c['status']}`"
-            )
+            st.write(f"To **{c['opponent']}** • **{c['domain']}** ({c['difficulty']}) • `{c['status']}`")
 
             if challenge_done:
                 st.button("✅ Challenge Over", key=f"start_done_{c['challenge_id']}", disabled=True)
@@ -2513,17 +2417,14 @@ if st.session_state.is_teacher:
 
     with st.form("create_student_form", clear_on_submit=True):
         sm1, sm2 = st.columns(2)
-
         with sm1:
             new_student_email = st.text_input("Student Email")
             new_student_password = st.text_input("Temporary Password", type="password")
             new_first_name = st.text_input("First Name")
-
         with sm2:
             new_student_id = st.text_input("Student ID")
             new_period = st.selectbox("Period", PERIOD_OPTIONS)
             new_active = st.checkbox("Active", value=True)
-
         create_student_submit = st.form_submit_button("Create Student")
 
     if create_student_submit:
@@ -2550,7 +2451,6 @@ if st.session_state.is_teacher:
 
     if student_profiles:
         st.markdown("#### Existing Students")
-
         student_rows = []
         for s in sorted(student_profiles, key=lambda x: (str(x.get("period", "")), str(x.get("first_name", "")))):
             student_rows.append({
@@ -2561,82 +2461,7 @@ if st.session_state.is_teacher:
                 "Period": s.get("period", ""),
                 "Active": bool(s.get("active", True)),
             })
-
         st.dataframe(student_rows, use_container_width=True, height=280)
-
-        student_lookup = {
-            f"{s.get('first_name', '')} | {s.get('student_id', '')} | {s.get('email', '')}": s
-            for s in student_profiles
-        }
-
-        selected_student_label = st.selectbox(
-            "Select Student to Edit",
-            [""] + list(student_lookup.keys()),
-            key="teacher_select_student_to_edit"
-        )
-
-        if selected_student_label:
-            selected_student = student_lookup[selected_student_label]
-
-            with st.form("edit_student_form"):
-                es1, es2 = st.columns(2)
-
-                with es1:
-                    edit_first_name = st.text_input("Edit First Name", value=selected_student.get("first_name", ""))
-                    edit_student_id = st.text_input("Edit Student ID", value=str(selected_student.get("student_id", "")))
-
-                with es2:
-                    edit_period = st.selectbox(
-                        "Edit Period",
-                        PERIOD_OPTIONS,
-                        index=PERIOD_OPTIONS.index(selected_student.get("period", "Other"))
-                        if selected_student.get("period", "Other") in PERIOD_OPTIONS
-                        else 0,
-                        key="teacher_student_period_edit_select"
-                    )
-                    edit_active = st.checkbox("Edit Active", value=bool(selected_student.get("active", True)))
-
-                c1, c2, c3 = st.columns(3)
-                with c1:
-                    update_student_submit = st.form_submit_button("Update Student")
-                with c2:
-                    deactivate_label = "Deactivate Student" if bool(selected_student.get("active", True)) else "Activate Student"
-                    toggle_active_submit = st.form_submit_button(deactivate_label)
-                with c3:
-                    delete_student_submit = st.form_submit_button("Delete Student")
-
-            if update_student_submit:
-                try:
-                    update_student_profile(
-                        uid=selected_student.get("uid", ""),
-                        first_name=edit_first_name,
-                        student_id=edit_student_id,
-                        period=edit_period,
-                        active=edit_active,
-                    )
-                    st.success("Student updated successfully.")
-                    st.rerun()
-                except Exception as e:
-                    st.error(str(e))
-
-            if toggle_active_submit:
-                try:
-                    set_student_profile_active(
-                        uid=selected_student.get("uid", ""),
-                        active=not bool(selected_student.get("active", True))
-                    )
-                    st.success("Student active status updated.")
-                    st.rerun()
-                except Exception as e:
-                    st.error(str(e))
-
-            if delete_student_submit:
-                try:
-                    delete_student_profile_and_auth(selected_student.get("uid", ""))
-                    st.success("Student deleted successfully.")
-                    st.rerun()
-                except Exception as e:
-                    st.error(str(e))
 
     st.divider()
 
@@ -2645,26 +2470,13 @@ if st.session_state.is_teacher:
 
     with st.form("teacher_create_event_form"):
         ev1, ev2 = st.columns(2)
-
         with ev1:
             new_event_title = st.text_input("Event Title", value="FTCE GK Arena Event")
             new_event_domain = st.selectbox("Event Domain", DOMAINS, key="teacher_event_domain_select")
             new_event_difficulty = st.selectbox("Event Difficulty", ["Easy", "Medium", "Hard"], key="teacher_event_diff_select")
-
         with ev2:
-            new_event_periods = st.multiselect(
-                "Periods Included",
-                PERIOD_OPTIONS,
-                default=["Period 1", "Period 2"]
-            )
-            new_event_question_count = st.number_input(
-                "Question Count",
-                min_value=1,
-                max_value=25,
-                value=CHALLENGE_QUESTIONS,
-                step=1
-            )
-
+            new_event_periods = st.multiselect("Periods Included", PERIOD_OPTIONS, default=["Period 1", "Period 2"])
+            new_event_question_count = st.number_input("Question Count", min_value=1, max_value=25, value=CHALLENGE_QUESTIONS, step=1)
         create_event_submit = st.form_submit_button("🚀 Create Arena Event")
 
     if create_event_submit:
@@ -2681,114 +2493,6 @@ if st.session_state.is_teacher:
         except Exception as e:
             st.error(str(e))
 
-    if all_events:
-        st.markdown("#### Event Manager")
-
-        EVENTS_PER_PAGE = 3
-        total_events = len(all_events)
-        total_pages = max(1, (total_events + EVENTS_PER_PAGE - 1) // EVENTS_PER_PAGE)
-
-        if st.session_state.teacher_event_page > total_pages:
-            st.session_state.teacher_event_page = total_pages
-        if st.session_state.teacher_event_page < 1:
-            st.session_state.teacher_event_page = 1
-
-        nav1, nav2, nav3 = st.columns([1, 2, 1])
-
-        with nav1:
-            if st.button("◀ Previous", disabled=st.session_state.teacher_event_page <= 1, key="teacher_event_prev_btn"):
-                st.session_state.teacher_event_page -= 1
-                st.rerun()
-
-        with nav2:
-            st.markdown(
-                f"<div style='text-align:center; font-weight:700; padding-top:8px;'>Page {st.session_state.teacher_event_page} of {total_pages}</div>",
-                unsafe_allow_html=True
-            )
-
-        with nav3:
-            if st.button("Next ▶", disabled=st.session_state.teacher_event_page >= total_pages, key="teacher_event_next_btn"):
-                st.session_state.teacher_event_page += 1
-                st.rerun()
-
-        start_idx = (st.session_state.teacher_event_page - 1) * EVENTS_PER_PAGE
-        end_idx = start_idx + EVENTS_PER_PAGE
-        paged_events = all_events[start_idx:end_idx]
-
-        for ev in paged_events:
-            ev_status = str(ev.get("status", "")).strip().lower()
-            ev_mode = str(ev.get("mode", "period")).strip().lower()
-            title_text = ev.get("title", "Arena Event")
-            mode_label = "Class Event" if ev_mode == "class" else "Period Event"
-
-            st.markdown(
-                f"**{title_text}** • **{mode_label}** • **{ev.get('domain', '')}** ({ev.get('difficulty', '')}) • "
-                f"Questions: {safe_int(ev.get('question_count', 0))} • Status: `{ev_status}`"
-            )
-
-            if ev_mode == "class":
-                class_scores = ev.get("class_scores", {}) or {}
-                class_rows = []
-
-                for _, row in class_scores.items():
-                    class_rows.append({
-                        "Player": row.get("player_id", ""),
-                        "Period": row.get("period", ""),
-                        "Score": safe_int(row.get("score", 0)),
-                        "Questions": safe_int(row.get("question_count", 0)),
-                    })
-
-                if class_rows:
-                    class_rows = sorted(class_rows, key=lambda x: x["Score"], reverse=True)
-                    st.dataframe(class_rows, use_container_width=True, height=170)
-
-                winner_players = ev.get("winner_players", []) or []
-                result_type = str(ev.get("result_type", "")).strip().lower()
-                winner_score = safe_int(ev.get("winner_score", 0))
-
-                if ev_status == "done" and winner_players:
-                    if result_type == "tie":
-                        st.info(f"Tie: {', '.join(winner_players)} • Score {winner_score}")
-                    else:
-                        st.success(f"Winner: {winner_players[0]} • Score {winner_score}")
-
-            else:
-                scores = ev.get("scores", {}) or {}
-                score_rows = []
-                for score_key, score_data in scores.items():
-                    score_rows.append({
-                        "Period": score_data.get("label", score_key),
-                        "Total Score": safe_int(score_data.get("total", 0)),
-                        "Participants": safe_int(score_data.get("count", 0)),
-                        "Average": safe_float(score_data.get("average", 0.0)),
-                    })
-
-                if score_rows:
-                    st.dataframe(score_rows, use_container_width=True, height=170)
-
-                winner_periods = ev.get("winner_periods", []) or []
-                result_type = str(ev.get("result_type", "")).strip().lower()
-                winner_average = safe_float(ev.get("winner_average", 0.0))
-
-                if ev_status == "done" and winner_periods:
-                    if result_type == "tie":
-                        st.info(f"Tie: {', '.join(winner_periods)} • Avg {winner_average}")
-                    else:
-                        st.success(f"Winner: {winner_periods[0]} • Avg {winner_average}")
-
-            if ev_status == "active":
-                if st.button("End Event", key=f"end_event_{ev.get('event_id', '')}"):
-                    try:
-                        end_challenge_event(ev.get("event_id", ""))
-                        st.success("Event ended and winner announced.")
-                        st.rerun()
-                    except Exception as e:
-                        st.error(str(e))
-
-            st.markdown("---")
-
-    st.divider()
-
     status_box = st.empty()
     progress_box = st.empty()
     result_box = st.empty()
@@ -2800,10 +2504,8 @@ if st.session_state.is_teacher:
             st.session_state.is_generating = True
             status_box.info("Generating AI questions...")
             progress = progress_box.progress(0)
-
             qs, err = fetch_questions_from_gemini(topic, difficulty, BATCH_SIZE)
             progress.progress(100)
-
             if qs:
                 add_to_bank(topic, difficulty, qs)
                 result_box.success(f"Added {len(qs)} AI questions to shared bank.")
@@ -2812,7 +2514,6 @@ if st.session_state.is_teacher:
                 if err:
                     with result_box.container():
                         st.error(err)
-
             st.session_state.is_generating = False
 
     with t2:
@@ -2849,10 +2550,7 @@ if st.session_state.is_teacher:
             st.session_state.is_generating = False
 
     with t3:
-        if st.button(
-            f"🚀 Generate {ALL_DOMAINS_TARGET} for EVERY domain ({difficulty})",
-            key="teacher_generate_all_domains_btn"
-        ):
+        if st.button(f"🚀 Generate {ALL_DOMAINS_TARGET} for EVERY domain ({difficulty})", key="teacher_generate_all_domains_btn"):
             st.session_state.is_generating = True
             total = 0
             failures = []
@@ -2884,20 +2582,6 @@ if st.session_state.is_teacher:
 
             st.session_state.is_generating = False
 
-    teacher_rows = []
-    for i, r in enumerate(lb_sorted[:50], start=1):
-        teacher_rows.append({
-            "Rank": i,
-            "name": r.get("name", ""),
-            "period": r.get("period", ""),
-            "xp": safe_int(r.get("xp", 0)),
-            "wins": safe_int(r.get("wins", 0)),
-            "losses": safe_int(r.get("losses", 0)),
-            "streak": safe_int(r.get("streak", 0)),
-            "best_streak": safe_int(r.get("best_streak", 0)),
-        })
-    st.dataframe(teacher_rows, use_container_width=True, height=240)
-
 # =================================================
 # QUESTION AREA
 # =================================================
@@ -2907,17 +2591,11 @@ active_diff = difficulty
 if st.session_state.event_mode and st.session_state.active_domain and st.session_state.active_difficulty:
     active_topic = st.session_state.active_domain
     active_diff = st.session_state.active_difficulty
-    st.info(
-        f"🏟️ Arena Event: {st.session_state.event_title} — "
-        f"Question {st.session_state.event_count + 1}/{st.session_state.event_question_count}"
-    )
+    st.info(f"🏟️ Arena Event: {st.session_state.event_title} — Question {st.session_state.event_count + 1}/{st.session_state.event_question_count}")
 elif st.session_state.challenge_mode and st.session_state.active_domain and st.session_state.active_difficulty:
     active_topic = st.session_state.active_domain
     active_diff = st.session_state.active_difficulty
-    st.info(
-        f"⚔️ Challenge Mode: {active_topic} ({active_diff}) — "
-        f"Question {st.session_state.challenge_count + 1}/{CHALLENGE_QUESTIONS}"
-    )
+    st.info(f"⚔️ Challenge Mode: {active_topic} ({active_diff}) — Question {st.session_state.challenge_count + 1}/{CHALLENGE_QUESTIONS}")
 
 if not any_quiz_mode_running() and st.session_state.get("question") is None:
     load_question(active_topic, active_diff)
@@ -2931,11 +2609,7 @@ if cooldown > 0:
     st.caption(f"Cooldown: {cooldown}s")
 
 if not any_quiz_mode_running():
-    st.button(
-        "Next Question",
-        disabled=True,
-        key="next_question_btn"
-    )
+    st.button("Next Question", disabled=True, key="next_question_btn")
 
 q = st.session_state.get("question")
 if not q:
@@ -3036,7 +2710,6 @@ if st.button(
             st.session_state.xp_popup_text = "❌ Streak Reset"
             st.session_state.xp_popup_kind = "warn"
             st.session_state.xp_popup_nonce += 1
-
             st.session_state.last_feedback_text = f"❌ Incorrect. Correct answer: {q['correct']}\n\n{q['explanation']}"
             st.session_state.last_feedback_kind = "error"
 
@@ -3051,9 +2724,6 @@ if st.button(
             st.warning("Could not save session log to Firebase.")
             st.code(str(e))
 
-        # -----------------------------
-        # 1v1 CHALLENGE MODE
-        # -----------------------------
         if st.session_state.challenge_mode and st.session_state.challenge_id:
             cid = st.session_state.challenge_id
             st.session_state.challenge_count += 1
@@ -3067,23 +2737,15 @@ if st.button(
 
                     if challenge_row:
                         score_field = my_challenge_score_field(challenge_row, player_id_lower)
-
                         if score_field and challenge_row.get(score_field) is None:
                             update_challenge(cid, {score_field: st.session_state.challenge_correct})
 
                         refreshed_snap = challenge_ref(cid).get()
                         refreshed = refreshed_snap.to_dict() if refreshed_snap.exists else None
 
-                        if (
-                            refreshed
-                            and refreshed.get("challenger_score") is not None
-                            and refreshed.get("opponent_score") is not None
-                        ):
+                        if refreshed and refreshed.get("challenger_score") is not None and refreshed.get("opponent_score") is not None:
                             if refreshed.get("status") != "done":
-                                update_challenge(cid, {
-                                    "status": "done",
-                                    "completed_utc": now_utc()
-                                })
+                                update_challenge(cid, {"status": "done", "completed_utc": now_utc()})
 
                             final_snap = challenge_ref(cid).get()
                             final_row = final_snap.to_dict() if final_snap.exists else None
@@ -3097,41 +2759,29 @@ if st.button(
                                 if cs > os_:
                                     add_xp_and_streak(c_name, XP_WIN, 0, win_delta=1)
                                     add_xp_and_streak(o_name, XP_LOSS, 0, loss_delta=1)
-                                    st.success(f"🏆 {c_name} wins! ({cs} vs {os_})")
-
                                     if player_id_lower == str(c_name).strip().lower():
                                         st.session_state.challenge_result_popup_text = "YOU WON!"
                                         st.session_state.challenge_result_popup_kind = "win"
                                     else:
                                         st.session_state.challenge_result_popup_text = "YOU LOST"
                                         st.session_state.challenge_result_popup_kind = "loss"
-
                                     st.session_state.challenge_result_popup_nonce += 1
-
                                 elif os_ > cs:
                                     add_xp_and_streak(o_name, XP_WIN, 0, win_delta=1)
                                     add_xp_and_streak(c_name, XP_LOSS, 0, loss_delta=1)
-                                    st.success(f"🏆 {o_name} wins! ({os_} vs {cs})")
-
                                     if player_id_lower == str(o_name).strip().lower():
                                         st.session_state.challenge_result_popup_text = "YOU WON!"
                                         st.session_state.challenge_result_popup_kind = "win"
                                     else:
                                         st.session_state.challenge_result_popup_text = "YOU LOST"
                                         st.session_state.challenge_result_popup_kind = "loss"
-
                                     st.session_state.challenge_result_popup_nonce += 1
-
                                 else:
                                     add_xp_and_streak(c_name, XP_DRAW, 0)
                                     add_xp_and_streak(o_name, XP_DRAW, 0)
-                                    st.success(f"🤝 Draw! ({cs} vs {os_})")
-
                                     st.session_state.challenge_result_popup_text = "TIE GAME"
                                     st.session_state.challenge_result_popup_kind = "tie"
                                     st.session_state.challenge_result_popup_nonce += 1
-                        else:
-                            st.success("✅ Challenge attempt submitted! Waiting for the other student.")
                 except Exception as e:
                     st.warning("Could not update challenge.")
                     st.code(str(e))
@@ -3150,9 +2800,6 @@ if st.button(
                 load_next_question_for_current_mode()
                 st.rerun()
 
-        # -----------------------------
-        # ARENA EVENT MODE
-        # -----------------------------
         elif st.session_state.event_mode and st.session_state.event_id:
             st.session_state.event_count += 1
             if correct:
@@ -3191,9 +2838,6 @@ if st.button(
                 load_next_question_for_current_mode()
                 st.rerun()
 
-        # -----------------------------
-        # NORMAL MODE
-        # -----------------------------
         else:
             st.session_state.processing_submission = False
             st.session_state.pending_auto_next = True
