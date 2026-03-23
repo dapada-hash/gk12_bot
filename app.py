@@ -25,7 +25,7 @@ except Exception:
 # PAGE CONFIG
 # =================================================
 st.set_page_config(
-    page_title="FTCE GK Arena 2026",
+    page_title="FTCE GK-12 Arena 2026",
     page_icon="📘",
     layout="wide"
 )
